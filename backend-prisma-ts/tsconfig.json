@@ -1,0 +1,16 @@
+{
+    "extends": "ts-node/node16/tsconfig.json",
+    "ts-node": {
+        "files": true,
+        "compilerOptions": {
+            "module":"CommonJS",
+            "outDir": "dist",
+            "rootDir": ".",
+            "sourceMap": true,
+            "lib": ["dom", "es2022"],
+            "strict": true,
+            "esModuleInterop": true,
+            "target": "es2022"
+        }
+    }
+}

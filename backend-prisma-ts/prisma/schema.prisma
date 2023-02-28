@@ -1,0 +1,40 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("JSREPORT_DATABASE_URL")
+}
+
+model Player {
+  pid       String   @id @unique @default(cuid())
+  
+  username  String   @unique @db.VarChar(32)
+  password  String   @db.VarChar(255)
+  // createdAt DateTime @default(now())
+  // updatedAt DateTime @updatedAt
+  isAdmin   Boolean  @default(false)
+  records   Record[]
+  settings  Settings?
+}
+
+model Settings {
+  sid      String @id @unique @default(cuid())
+
+  player   Player @relation(fields: [playerId], references: [pid], onDelete: Cascade)
+  playerId String @unique
+
+  volumePercentage Int
+}
+
+model Record {
+  rid      String @id @unique @default(cuid())
+
+  player   Player @relation(fields: [playerId], references: [pid], onDelete: Cascade)
+  playerId String
+  
+  score    Int
+  powerups Int
+  time     Int
+}
